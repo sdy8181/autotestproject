@@ -1,0 +1,34 @@
+功能: u盘音乐到蓝牙音乐
+
+  场景: u盘音乐到蓝牙音乐
+    当 < 打开音乐应用 ... passed in 0.594s
+    当 < 打开我的音乐库 ... passed in 1.065s
+    当 < 播放U盘音乐 ... passed in 2.198s
+    那么 < 验证当前为U盘音乐 ... passed in 0.876s
+    当 < 延时 ... passed in 10.009s
+      | sleep_time |
+      | 10         |
+    那么 < 验证音乐是否播放 ... passed in 4.763s
+      | is_playing |
+      | true       |
+    当 < 播放蓝牙音乐 ... failed in 10.975s
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1456, in run
+    match.run(runner.context)
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1903, in run
+    self.func(context, *args, **kwargs)
+  File "steps/step_audio.py", line 237, in step_impl
+    Audio().click_audio_mine_bluetooth_play_ele()
+  File "/home/ogq/pateo/AT/ATP/autotestproject/actions/audio.py", line 631, in click_audio_mine_bluetooth_play_ele
+    ele = self.__get_audio_mine_bluetooth_play_ele()
+  File "/home/ogq/pateo/AT/ATP/autotestproject/actions/audio.py", line 187, in __get_audio_mine_bluetooth_play_ele
+    Utils().raise_Exception_info('蓝牙音乐控件不存在')
+  File "/home/ogq/pateo/AT/ATP/autotestproject/utils/utils.py", line 110, in raise_Exception_info
+    raise Exception('用例运行失败，' + err_msg + '请参考截图信息: file:///' + png_path)
+Exception: 用例运行失败，蓝牙音乐控件不存在请参考截图信息: file:////home/ogq/pateo/AT/autotestLog/20160902/screenshots/20160902111254.png
+
+Captured stdout:
+/home/ogq/pateo/AT/autotestLog/20160902/screenshots/20160902111254.png
+开始检查应用是否crash
+
+

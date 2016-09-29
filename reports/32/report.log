@@ -1,0 +1,18 @@
+功能: 播放本地指定音乐并验证播放状态
+
+  场景: 播放本地指定音乐并验证播放状态
+    当 < 打开音乐应用 ... passed in 0.690s
+    当 < 打开我的音乐库 ... passed in 1.076s
+    当 < 播放本地指定音乐 ... passed in 2.609s
+      | music_name |
+      | 小城故事       |
+    那么 < 验证音乐名称一致 ... passed in 0.706s
+      | chk_music_name |
+      | 小城故事           |
+    那么 < 验证歌手名字一致 ... passed in 0.214s
+      | chk_artist |
+      | 邓丽君        |
+    那么 < 验证音乐是否播放 ... passed in 4.751s
+      | is_playing |
+      | true       |
+

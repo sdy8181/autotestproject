@@ -1,0 +1,24 @@
+功能: 导航到南京新街口
+
+  场景: 导航到南京新街口
+    当 < 打开导航 ... passed in 1.155s
+    当 < 打开导航搜索 ... passed in 22.804s
+    当 < 选择导航搜索城市 ... failed in 61.939s
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1456, in run
+    match.run(runner.context)
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1903, in run
+    self.func(context, *args, **kwargs)
+  File "steps/step_navi.py", line 67, in step_impl
+    Utils().raise_Exception_info('没有搜索到对应的城市')
+  File "/home/ogq/pateo/AT/ATP/autotestproject/utils/utils.py", line 110, in raise_Exception_info
+    raise Exception('用例运行失败，' + err_msg + '请参考截图信息: file:///' + png_path)
+Exception: 用例运行失败，没有搜索到对应的城市请参考截图信息: file:////home/ogq/pateo/AT/autotestLog/20160906/screenshots/20160906144211.png
+
+Captured stdout:
+/home/ogq/pateo/AT/autotestLog/20160906/screenshots/20160906144211.png
+开始检查应用是否crash
+
+      | city_name |
+      | 南京市       |
+

@@ -1,0 +1,92 @@
+功能: 播放本地指定音乐并验证播放状态
+
+  场景: 播放本地指定音乐并验证播放状态
+    当 < 打开音乐应用 ... passed in 0.684s
+    当 < 打开我的音乐库 ... passed in 1.286s
+    当 < 播放本地指定音乐 ... passed in 24.260s
+      | music_name |
+      | 小城故事       |
+    那么 < 验证音乐名称一致 ... passed in 0.558s
+      | chk_music_name |
+      | 小城故事           |
+    那么 < 验证歌手名字一致 ... passed in 0.235s
+      | chk_artist |
+      | 邓丽君        |
+    那么 < 验证音乐是否播放 ... passed in 4.031s
+      | is_playing |
+      | true       |
+
+功能: 暂停音乐并验证播放状态暂停
+
+  场景: 暂停音乐并验证播放状态暂停
+    当 < 打开音乐应用 ... passed in 0.607s
+    当 < 打开我的音乐库 ... passed in 1.148s
+    当 < 播放本地指定音乐 ... passed in 2.660s
+      | music_name |
+      | 小城故事       |
+    当 < 播放或暂停音乐 ... passed in 0.869s
+    那么 < 验证音乐是否播放 ... passed in 4.183s
+      | is_playing |
+      | false      |
+
+功能: 收音机暂停验证收音机状态
+
+  场景: 收音机暂停验证收音机状态
+    当 < 打开收音机应用 ... passed in 0.679s
+    当 < 打开FM_AM选择界面 ... passed in 0.777s
+    当 < 随机播放FM节目 ... passed in 8.000s
+      | o_result |
+      | o_name   |
+    当 < 播放或暂停FM电台 ... failed in 14.385s
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1456, in run
+    match.run(runner.context)
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1903, in run
+    self.func(context, *args, **kwargs)
+  File "steps/step_radio.py", line 258, in step_impl
+    Radio().click_radio_pause_or_play_ele()
+  File "/home/ogq/pateo/AT/ATP/autotestproject/actions/radio.py", line 185, in click_radio_pause_or_play_ele
+    Utils().raise_Exception_info('上一首或下一首控件不存在')
+  File "/home/ogq/pateo/AT/ATP/autotestproject/utils/utils.py", line 110, in raise_Exception_info
+    raise Exception('用例运行失败，' + err_msg + '请参考截图信息: file:///' + png_path)
+Exception: 用例运行失败，上一首或下一首控件不存在请参考截图信息: file:////home/ogq/pateo/AT/autotestLog/20160902/screenshots/20160902113054.png
+
+Captured stdout:
+/home/ogq/pateo/AT/autotestLog/20160902/screenshots/20160902113054.png
+开始检查应用是否crash
+
+
+功能: u盘音乐到蓝牙音乐
+
+  场景: u盘音乐到蓝牙音乐
+    当 < 打开音乐应用 ... passed in 0.546s
+    当 < 打开我的音乐库 ... passed in 0.781s
+    当 < 播放U盘音乐 ... passed in 2.411s
+    那么 < 验证当前为U盘音乐 ... passed in 0.866s
+    当 < 延时 ... passed in 10.010s
+      | sleep_time |
+      | 10         |
+    那么 < 验证音乐是否播放 ... passed in 4.084s
+      | is_playing |
+      | true       |
+    当 < 播放蓝牙音乐 ... failed in 11.211s
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1456, in run
+    match.run(runner.context)
+  File "/usr/local/lib/python3.4/site-packages/behave/model.py", line 1903, in run
+    self.func(context, *args, **kwargs)
+  File "steps/step_audio.py", line 237, in step_impl
+    Audio().click_audio_mine_bluetooth_play_ele()
+  File "/home/ogq/pateo/AT/ATP/autotestproject/actions/audio.py", line 631, in click_audio_mine_bluetooth_play_ele
+    ele = self.__get_audio_mine_bluetooth_play_ele()
+  File "/home/ogq/pateo/AT/ATP/autotestproject/actions/audio.py", line 187, in __get_audio_mine_bluetooth_play_ele
+    Utils().raise_Exception_info('蓝牙音乐控件不存在')
+  File "/home/ogq/pateo/AT/ATP/autotestproject/utils/utils.py", line 110, in raise_Exception_info
+    raise Exception('用例运行失败，' + err_msg + '请参考截图信息: file:///' + png_path)
+Exception: 用例运行失败，蓝牙音乐控件不存在请参考截图信息: file:////home/ogq/pateo/AT/autotestLog/20160902/screenshots/20160902113139.png
+
+Captured stdout:
+/home/ogq/pateo/AT/autotestLog/20160902/screenshots/20160902113139.png
+开始检查应用是否crash
+
+

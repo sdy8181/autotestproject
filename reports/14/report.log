@@ -1,0 +1,76 @@
+功能: IPDA收音机的相关功能验证
+  背景: IPDA每日最新系统回归验证基本功能
+
+  场景: 收听搜索的电台，并验证播放状态和电台标题
+    当 < 打开收音机应用 ... passed in 0.744s
+    当 < 打开搜索界面 ... passed in 0.800s
+    当 < 输入电台搜索关键字 ... passed in 0.833s
+      | key_word |
+      | 南京       |
+    当 < 随机播放搜索电台 ... passed in 4.277s
+      | o_result |
+      | o_fm_no  |
+    那么 < 验证播放的FM编号一致 ... passed in 7.237s
+      | chk_fm_no |
+      | o_fm_no   |
+    那么 < 验证电台是否播放 ... passed in 5.255s
+      | chk_is_playing |
+      | true           |
+
+功能: IPDA收音机的相关功能验证
+  背景: IPDA每日最新系统回归验证基本功能
+
+  场景: 收听搜索的电台，并验证播放状态和电台标题
+    当 < 打开收音机应用 ... passed in 0.744s
+    当 < 打开搜索界面 ... passed in 0.800s
+    当 < 输入电台搜索关键字 ... passed in 0.833s
+      | key_word |
+      | 南京       |
+    当 < 随机播放搜索电台 ... passed in 4.277s
+      | o_result |
+      | o_fm_no  |
+    那么 < 验证播放的FM编号一致 ... passed in 7.237s
+      | chk_fm_no |
+      | o_fm_no   |
+    那么 < 验证电台是否播放 ... passed in 5.255s
+      | chk_is_playing |
+      | true           |
+
+功能: IPDA收音机的相关功能验证
+  背景: IPDA每日最新系统回归验证基本功能
+
+  场景: 收听搜索的电台，并验证播放状态和电台标题
+    当 < 打开收音机应用 ... passed in 0.744s
+    当 < 打开搜索界面 ... passed in 0.800s
+    当 < 输入电台搜索关键字 ... passed in 0.833s
+      | key_word |
+      | 南京       |
+    当 < 随机播放搜索电台 ... passed in 4.277s
+      | o_result |
+      | o_fm_no  |
+    那么 < 验证播放的FM编号一致 ... passed in 7.237s
+      | chk_fm_no |
+      | o_fm_no   |
+    那么 < 验证电台是否播放 ... failed in 5.255s
+      | chk_is_playing |
+      | true           |
+
+功能: IPDA收音机的相关功能验证
+  背景: IPDA每日最新系统回归验证基本功能
+
+  场景: 收听搜索的电台，并验证播放状态和电台标题
+    当 < 打开收音机应用 ... passed in 0.744s
+    当 < 打开搜索界面 ... passed in 0.800s
+    当 < 输入电台搜索关键字 ... passed in 0.833s
+      | key_word |
+      | 南京       |
+    当 < 随机播放搜索电台 ... passed in 4.277s
+      | o_result |
+      | o_fm_no  |
+    那么 < 验证播放的FM编号一致 ... passed in 7.237s
+      | chk_fm_no |
+      | o_fm_no   |
+    那么 < 验证电台是否播放 ... passed in 5.255s
+      | chk_is_playing |
+      | true           |
+
