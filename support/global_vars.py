@@ -1,7 +1,13 @@
 # -*- coding: UTF-8 -*-
-from utils.utils import Utils
+from utils.helpTools import ht
+
 
 global d
-d = Utils().get_device_obj()
+d = ht.get_device_obj()
+
+global dphone
+dphone = ht.get_phone_obj()
+
 global ver_flag
-ver_flag = Utils().is_old_ver()
+ver_flag = ht.is_old_ver()
+

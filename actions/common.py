@@ -2,9 +2,7 @@
 import os
 import platform
 import time
-
 import serial
-
 from actions.audio import Audio
 from actions.gesture import Gesture
 from actions.launcher import Launcher
@@ -14,8 +12,8 @@ from actions.radio import Radio
 from actions.systemsetting import SysSetting
 from actions.video import Video
 from support.global_vars import ver_flag, d
-from utils.utils import Utils
-
+from utils.helpTools import ht
+from utils.uiTools import uit
 
 
 class Common:
@@ -49,8 +47,7 @@ class Common:
                 elif 'pateo.dls.gesture'.__eq__(package_name):
                     Gesture().back_to_launcher()
                 else:
-                # Utils().raise_Exception_info('当前包名获取异常')
-                    if Utils().crash_handler():
+                    if uit.crash_handler():
                         print('回到主界面有CRASH')
                 package_name = d.info['currentPackageName']
         else:
@@ -79,8 +76,7 @@ class Common:
                 elif 'com.qinggan.app.gesture'.__eq__(package_name):
                     Gesture().back_to_launcher()
                 else:
-                    # Utils().raise_Exception_info('当前包名获取异常')
-                    if Utils().crash_handler():
+                    if uit.crash_handler():
                         print('回到主界面有CRASH')
                 package_name = d.info['currentPackageName']
         # 在主界面
@@ -93,31 +89,31 @@ class Common:
     def ivoka_start_app(self, voice_name):
         ivoka_flag = False
 
-        Utils().play_voice('你好语音助理.m4a')
-        ele = d(text = '你好，请说')
-        ele1 = d(text = '没听清，请再说一次')
+        ht.play_voice('你好语音助理.m4a')
+        ele = d(text='你好，请说')
+        ele1 = d(text='没听清，请再说一次')
         loop = 0
         while (loop <= 3) and (not ivoka_flag):
-            if ele.wait.exists(timeout = 8000):
-                Utils().play_voice(voice_name)
+            if ele.wait.exists(timeout=8000):
+                ht.play_voice(voice_name)
                 ivoka_flag = True
 
-                if ele1.wait.exists(timeout = 8000):
-                    Utils().play_voice(voice_name)
+                if ele1.wait.exists(timeout=8000):
+                    ht.play_voice(voice_name)
                     ivoka_flag = True
             else:
-                Utils().play_voice('你好语音助理.m4a')
+                ht.play_voice('你好语音助理.m4a')
                 loop += 1
 
         if not ivoka_flag:
-            Utils().raise_Exception_info('ivoka唤醒失败')
+            uit.raise_Exception_info('ivoka唤醒失败')
 
     # 获取media音量
     def get_media_volume(self):
         if platform.system() == 'Linux':
-            cmd = '''adb  -s ''' + Utils().get_conf_value('deviceSerial')  + ''' shell "echo 'select * from system;'|sqlite3 /data/data/com.android.providers.settings/databases/settings.db" | grep "volume_music_speaker"'''
+            cmd = '''adb  -s ''' + ht.get_conf_value('deviceSerial') + ''' shell "echo 'select * from system;'|sqlite3 /data/data/com.android.providers.settings/databases/settings.db" | grep "volume_music_speaker"'''
         else:
-            cmd = '''adb  -s ''' + Utils().get_conf_value('deviceSerial')  + ''' shell "echo 'select * from system;'|sqlite3 /data/data/com.android.providers.settings/databases/settings.db" | findstr "volume_music_speaker"'''
+            cmd = '''adb  -s ''' + ht.get_conf_value('deviceSerial') + ''' shell "echo 'select * from system;'|sqlite3 /data/data/com.android.providers.settings/databases/settings.db" | findstr "volume_music_speaker"'''
         volume_ret = os.popen(cmd).read().strip()
         volume_value = volume_ret.split('|')[2].strip()
         print(volume_value)
@@ -172,15 +168,14 @@ class Common:
                 return '主界面'
 
 
-
     def phone_call_handler(self, device):
         print('开始监听咯。。。。')
         if device(resourceId='com.android.incallui:id/endButton').exists:
             print('发现在打电话。。。')
-            Utils().take_screenshot()
+            uit.take_screenshot()
             # d(text='拒绝').click()
             device(resourceId='com.android.incallui:id/endButton').click()
-            Utils().raise_Exception_info('Crash is occurred')
+            uit.raise_Exception_info('Crash is occurred')
         else:
             print('毛都没有。。。')
         return True
@@ -194,6 +189,7 @@ class Common:
             s.open()
         s.write(poweroff)
         s.close()
+
     # 模拟插上U盘
     def controlPoweron(self):
         s = serial.Serial(port='COM6', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=None)
@@ -208,29 +204,27 @@ class Common:
         Common().back_to_launcher()
         Launcher().click_system_setting_ele()
         SysSetting().click_syssetting_menu_net_ele()
-        ele = d(resourceId = 'com.qinggan.app.setting:id/wifi_header')
-        ele1 = ele.child(text = 'WIFI', resourceId = 'com.qinggan.app.setting:id/wifi_title')
+        ele = d(resourceId='com.qinggan.app.setting:id/wifi_header')
+        ele1 = ele.child(text='WIFI', resourceId='com.qinggan.app.setting:id/wifi_title')
 
         if not ele1.wait.exists():
             d.click(1150, 80)
             SysSetting().click_syssetting_menu_net_ele()
-            # flag_ele = ele.child(resourceId = 'com.qinggan.app.setting:id/wifi_switcher')
-            # flag_ele.click()
 
         ele.click.wait()
-        scan_ele = d(text='重新扫描', resourceId = 'com.qinggan.app.setting:id/btn_wifi_scan')
+        scan_ele = d(text='重新扫描', resourceId='com.qinggan.app.setting:id/btn_wifi_scan')
         while not scan_ele.wait.exists():
             ele.click.wait()
 
         wifi_ssid_ele = d(resourceId = 'com.qinggan.app.setting:id/wifi_scanresult_name')
-        if wifi_ssid_ele.wait.exists(timeout = Utils().LONG_TIME_OUT):
+        if wifi_ssid_ele.wait.exists(timeout=ht.LONG_TIME_OUT):
             ele = d(resourceId='com.qinggan.app.setting:id/wifi_device_list')
-            if not ele.scroll.vert.to(text= ssid):
+            if not ele.scroll.vert.to(text=ssid):
                 scan_ele.click()
-                wifi_ssid_ele.wait.exists(timeout=Utils().LONG_TIME_OUT)
+                wifi_ssid_ele.wait.exists(timeout=ht.LONG_TIME_OUT)
                 ele.scroll.vert.to(text=ssid)
 
-            ele1 = d(text= ssid)
+            ele1 = d(text=ssid)
             con_ele = ele1.sibling(text='连接')
             if con_ele.wait.exists():
                 con_ele.click()
@@ -241,6 +235,6 @@ class Common:
               ele1.sibling(text='连接').click()
 
         else:
-            Utils().raise_Exception_info('刷新时间过长')
+            uit.raise_Exception_info('刷新时间过长')
 
 

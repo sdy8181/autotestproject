@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from behave import when, then
+from behave import when
 
 from actions.phone import Phone
 

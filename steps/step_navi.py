@@ -1,13 +1,11 @@
 # -*- coding: UTF-8 -*-
 import random
 
-import time
 from behave import then, when
-
 from actions.navi import Navi
 from support.global_vars import d
-from utils.utils import Utils
-
+from utils.helpTools import ht
+from utils.uiTools import uit
 
 @then(u'< 验证当前为导航主界面')
 def step_impl(context):
@@ -24,7 +22,7 @@ def step_impl(context):
     if not compass.wait.exists() and sitelite.wait.exists() \
             and \
             (curroad.wait.exists() or zoomseekbar.wait.exists()):
-        Utils().raise_Exception_info('导航主界面元素校验失败')
+        uit.raise_Exception_info('导航主界面元素校验失败')
 
 
 @when(u'< 打开导航搜索')
@@ -37,7 +35,7 @@ def step_impl(context):
         curroad.click()
         search.click.wait()
     else:
-        Utils().raise_Exception_info('导航搜索控件打开失败')
+        uit.raise_Exception_info('导航搜索控件打开失败')
 
 
 @when(u'< 选择导航搜索城市')
@@ -49,22 +47,22 @@ def step_impl(context):
     if city_search.wait.exists():
         city_search.click.wait()
     else:
-        Utils().raise_Exception_info('搜索城市控件不存在')
+        uit.raise_Exception_info('搜索城市控件不存在')
 
     search_key = Navi().get_navi_search_key_ele()
     if search_key.wait.exists():
-        search_key.set_text(Utils().unicode_input(city_name))
+        search_key.set_text(ht.unicode_input(city_name))
     else:
-        Utils().raise_Exception_info('搜索框控件不存在')
+        uit.raise_Exception_info('搜索框控件不存在')
     # 搜索列表
     list_item = Navi().get_navi_search_city_list_item()
-    if list_item.wait.exists(timeout=Utils().LONG_TIME_OUT):
+    if list_item.wait.exists(timeout=ht.LONG_TIME_OUT):
         for e in list_item:
             if e.text.strip() == city_name:
                 e.click.wait()
                 break
     else:
-        Utils().raise_Exception_info('没有搜索到对应的城市')
+        uit.raise_Exception_info('没有搜索到对应的城市')
 
 
 @when(u'< 选择搜索的导航地址')
@@ -74,22 +72,22 @@ def step_impl(context):
 
     search_key = Navi().get_navi_search_key_ele()
     if search_key.wait.exists():
-        search_key.set_text(Utils().unicode_input(address))
+        search_key.set_text(ht.unicode_input(address))
     else:
-        Utils().raise_Exception_info('搜索框控件不存在')
+        uit.raise_Exception_info('搜索框控件不存在')
 
     list_item = Navi().get_navi_search_addr_list_title()
 
-    if list_item.wait.exists(timeout=Utils().LONG_TIME_OUT):
+    if list_item.wait.exists(timeout=ht.LONG_TIME_OUT):
         size = len(list_item)
         idx = random.randint(0, size - 1)
         e = list_item[idx]
         ret = e.text.strip()
         e.click.wait()
         # 返回选择的地址并存入上下文
-        Utils().set_context_map(o_result, ret)
+        ht.set_context_map(o_result, ret)
     else:
-        Utils().raise_Exception_info('没有搜索到对应的城市')
+        uit.raise_Exception_info('没有搜索到对应的城市')
 
 
 @when(u'< 获取将要导航目的地地址')
@@ -98,9 +96,9 @@ def step_impl(context):
     param = context.table[0]['o_result']
     ele = Navi().get_navi_ready_dest_ele()
     if ele.wait.exists():
-        Utils().set_context_map(param, ele.text.strip())
+        ht.set_context_map(param, ele.text.strip())
     else:
-        Utils().raise_Exception_info('导航目的地控件不存在')
+        uit.raise_Exception_info('导航目的地控件不存在')
 
 
 @then(u'< 验证导航界面的元素')
@@ -111,7 +109,7 @@ def step_impl(context):
     time_indicator = Navi().get_navi_time_indicator_ele()
 
     if not compass.wait.exists() and curroad.wait.exists() and pager.wait.exists() and time_indicator.wait.exists():
-        Utils().raise_Exception_info('导航界面元素检查失败，缺少元素信息')
+        uit.raise_Exception_info('导航界面元素检查失败，缺少元素信息')
 
 
 @when(u'< 导航到目的地')
@@ -123,7 +121,7 @@ def step_impl(context):
         if dest_time.wait.exists(timeout=20000):
             dest_time.wait.gone(timeout=15000)
     else:
-        Utils().raise_Exception_info('导航到指定地址控件不存在')
+        uit.raise_Exception_info('导航到指定地址控件不存在')
 
 
 @when(u'< 收藏或取消收藏导航地址')
@@ -132,7 +130,7 @@ def step_impl(context):
     if fav_ele.wait.exists():
         fav_ele.click()
     else:
-        Utils().raise_Exception_info('地址收藏控件不可见')
+        uit.raise_Exception_info('地址收藏控件不可见')
 
 
 @when(u'< 打开导航收藏')
@@ -141,7 +139,7 @@ def step_impl(context):
     if fav_ele.wait.exists():
         fav_ele.click.wait()
     else:
-        Utils().raise_Exception_info('收藏控件不可见')
+        uit.raise_Exception_info('收藏控件不可见')
 
 
 @then(u'< 验证地址是否被收藏')
@@ -150,7 +148,7 @@ def step_impl(context):
     addr = context.table[0]['address']
     is_faved = context.table[0]['is_faved']
     if str(addr).startswith('o_'):
-        addr = Utils().get_context_map(addr)
+        addr = ht.get_context_map(addr)
 
     list_view = Navi().get_navi_search_listview_ele()
     if list_view.wait.exists():
@@ -162,16 +160,16 @@ def step_impl(context):
             flag = ele.wait.exists()
 
         if str(flag).lower() != is_faved.lower():
-            Utils().raise_Exception_info('验证是否被收藏状态不一致，期望值为:' + is_faved + ', 实际值为：' + str(flag))
+            uit.raise_Exception_info('验证是否被收藏状态不一致，期望值为:' + is_faved + ', 实际值为：' + str(flag))
     else:
-        Utils().raise_Exception_info('收藏列表不存在')
+        uit.raise_Exception_info('收藏列表不存在')
 
 
 @when(u'< 删除指定地址')
 def step_impl(context):
     addr = context.table[0]['address']
     if str(addr).startswith('o_'):
-        addr = Utils().get_context_map(addr)
+        addr = ht.get_context_map(addr)
 
     # 获取删除控件并点击
     del_ele = Navi().get_navi_his_fav_del_ele(addr)
@@ -187,7 +185,7 @@ def step_impl(context):
 def step_impl(context):
     addr = context.table[0]['address']
     if str(addr).startswith('o_'):
-        addr = Utils().get_context_map(addr)
+        addr = ht.get_context_map(addr)
 
     list_view = Navi().get_navi_search_listview_ele()
     if list_view.wait.exists():
@@ -198,33 +196,33 @@ def step_impl(context):
                 if ele.wait.exists():
                     ele.click.wait()
                 else:
-                    Utils().raise_Exception_info('指定收藏地址不存在')
+                    uit.raise_Exception_info('指定收藏地址不存在')
             else:
-                Utils().raise_Exception_info('指定收藏地址不存在')
+                uit.raise_Exception_info('指定收藏地址不存在')
         else:
             ele = d(text=addr)
             if ele.wait.exists():
                 ele.click.wait()
     else:
-        Utils().raise_Exception_info('收藏列表不存在')
+        uit.raise_Exception_info('收藏列表不存在')
 
 
 @then(u'< 验证附近查询结果')
 def step_impl(context):
     title = context.table[0]['nearby_title']
     if str(title).startswith('o_'):
-        title = Utils().get_context_map(title)
+        title = ht.get_context_map(title)
 
     # 验证搜索结果的标题是否一致
     nearby_title = Navi().get_navi_nearby_title_ele()
     if nearby_title.wait.exists():
         txt = nearby_title.text.strip()
         if txt != title:
-            Utils().raise_Exception_info('搜索附近的XXX标题不一致，期望值为：' + title + ', 实际值是: ' + txt)
+            uit.raise_Exception_info('搜索附近的XXX标题不一致，期望值为：' + title + ', 实际值是: ' + txt)
     else:
-        Utils().raise_Exception_info('搜索附近的XXX的标题控件不存在')
+        uit.raise_Exception_info('搜索附近的XXX的标题控件不存在')
 
     # 验证是否有查询结果
     nearby_name = Navi().get_navi_nearby_name_ele()
     if not nearby_name.wait.exists():
-        Utils().raise_Exception_info('搜索附近的XXX的结果为空')
+        uit.raise_Exception_info('搜索附近的XXX的结果为空')

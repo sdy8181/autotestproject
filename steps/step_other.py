@@ -3,8 +3,8 @@ from behave import then, when
 
 from actions.phone import Phone
 from actions.qplay import Qplay
-from utils.utils import Utils
-
+from utils.helpTools import ht
+from utils.uiTools import uit
 
 @then(u'< 验证Qplay连接成功')
 def step_impl(context):
@@ -15,7 +15,7 @@ def step_impl(context):
     #获取入参
     param = context.table[0]['chk_name']
     if str(param).startswith('o_'):
-        chk_name = Utils().get_context_map(param)
+        chk_name = ht.get_context_map(param)
     else:
         chk_name = param
 
@@ -27,20 +27,20 @@ def step_impl(context):
     o_name = context.table[0]['o_result']
     name = Qplay().click_qplay_local_name_random()
     # 保存到上下文变量
-    Utils().set_context_map(o_name, name)
+    ht.set_context_map(o_name, name)
 
 @then(u'< 验证Qplay歌曲是否一致')
 def step_impl(context):
     # 获取入参
     param = context.table[0]['chk_name']
     if str(param).startswith('o_'):
-        chk_name = Utils().get_context_map(param)
+        chk_name = ht.get_context_map(param)
     else:
         chk_name = param
 
     name = Qplay().get_qplay_play_name()
     if not name == chk_name:
-        Utils().raise_Exception_info('Qplay播放音乐名称不一致，期望值为《' + chk_name + '》，实际值为《' + name + '》')
+        uit.raise_Exception_info('Qplay播放音乐名称不一致，期望值为《' + chk_name + '》，实际值为《' + name + '》')
 @when(u'< 手机退出车机模式')
 def step_impl(context):
     Phone().click_exit_qplay()

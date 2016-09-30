@@ -4,8 +4,8 @@ import os
 from behave import when, then
 
 from actions.gesture import Gesture
-from utils.utils import Utils
-
+from utils.helpTools import ht
+from utils.uiTools import uit
 
 @when(u'< 开始倒车')
 def step_impl(context):
@@ -15,11 +15,11 @@ def step_impl(context):
     Gesture().stop_back_car()
 @then(u'< 验证正在倒车')
 def step_impl(context):
-    cur_png_name = Utils().take_screenshot()
+    cur_png_name = uit.take_screenshot()
     init_png_name = os.path.join(os.path.abspath('../support'), 'car_reverse.png')
-    diff_data = Utils().get_image_diff_data(init_png_name, cur_png_name)
+    diff_data = ht.get_image_diff_data(init_png_name, cur_png_name)
     if diff_data > 1.0:
-        error_png = Utils().take_screenshot()
+        error_png = uit.take_screenshot()
         context.execute_steps('''
         when < 结束倒车
         ''')
@@ -27,11 +27,11 @@ def step_impl(context):
 
 @then(u'< 验证退出倒车')
 def step_impl(context):
-    cur_png_name = Utils().take_screenshot()
+    cur_png_name = uit.take_screenshot()
     init_png_name = os.path.join(os.path.abspath('../support'), 'car_reverse.png')
-    diff_data = Utils().get_image_diff_data(init_png_name, cur_png_name)
+    diff_data = ht.get_image_diff_data(init_png_name, cur_png_name)
     if not diff_data > 1000.0:
-        error_png = Utils().take_screenshot()
+        error_png = uit.take_screenshot()
         context.execute_steps('''
             when < 结束倒车
             ''')

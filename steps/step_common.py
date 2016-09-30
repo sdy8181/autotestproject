@@ -6,8 +6,8 @@ from behave import when, then
 
 from actions.common import Common
 from support.global_vars import d
-from utils.utils import Utils
-
+from utils.helpTools import ht
+from utils.uiTools import uit
 
 @when(u'< 延时')
 def step_impl(context):
@@ -18,9 +18,9 @@ def step_impl(context):
 def step_impl(context):
     chk_tinymix = context.table[0]['chk_tinymix']
     # 获取当前的放音通道
-    cur_tinymix = Utils().get_cur_tinymix()
+    cur_tinymix = ht.get_cur_tinymix()
     if chk_tinymix != cur_tinymix:
-        Utils().raise_Exception_info('放音通道不一致，期望值为《' + chk_tinymix + '》，实际值为《' + cur_tinymix + '》')
+        uit.raise_Exception_info('放音通道不一致，期望值为《' + chk_tinymix + '》，实际值为《' + cur_tinymix + '》')
 @when(u'< 回到系统主界面')
 def step_impl(context):
     Common().back_to_launcher()
@@ -28,7 +28,7 @@ def step_impl(context):
 def step_impl(context):
     # 获取参数
     voiceFile = context.table[0]['voice_file']
-    Utils().play_voice(voiceFile)
+    ht.play_voice(voiceFile)
     time.sleep(4)
 @when(u'< ivoka唤醒应用')
 def step_impl(context):
@@ -41,21 +41,21 @@ def step_impl(context):
     param = context.table[0]['o_result']
     volume_value = Common().get_media_volume()
     #保存在上下文变量中
-    Utils().set_context_map(param, volume_value)
+    ht.set_context_map(param, volume_value)
 
 @then(u'< 验证MEDIA音量一致')
 def step_impl(context):
     # 获取入参
     param = context.table[0]['chk_volume']
     if str(param).startswith('o_'):
-        chk_volume = Utils().get_context_map(param)
+        chk_volume = ht.get_context_map(param)
     else:
         chk_volume = param
     # 获取当前的音量
     cur_volume = Common().get_media_volume()
     # 校验是否一致
     if cur_volume != chk_volume:
-        Utils().raise_Exception_info('Media音量不一致，期望值为《' + chk_volume + '》，实际值为《' + cur_volume + '》')
+        uit.raise_Exception_info('Media音量不一致，期望值为《' + chk_volume + '》，实际值为《' + cur_volume + '》')
 @then(u'< 验证当前应用')
 def step_impl(context):
     #获取期望应用名称
@@ -64,7 +64,7 @@ def step_impl(context):
     cur_app_name = Common().get_current_package_name()
     # 校验
     if chk_app_name != cur_app_name:
-        Utils().raise_Exception_info('期望应用和当前应用不一致，期望应用为《' + chk_app_name + '》，当前应用为《' + cur_app_name + '》')
+        uit.raise_Exception_info('期望应用和当前应用不一致，期望应用为《' + chk_app_name + '》，当前应用为《' + cur_app_name + '》')
 
 @when(u'< 拔出U盘')
 def step_impl(context):
@@ -80,10 +80,10 @@ def step_impl(context):
     opt = context.table[0]['option']
 
     if param1.startswith('o_'):
-        param1 = Utils().get_context_map(param1)
+        param1 = ht.get_context_map(param1)
 
     if param2.startswith('o_'):
-        param2 = Utils().get_context_map(param2)
+        param2 = ht.get_context_map(param2)
 
     if opt == '==':
         flag = param1.lower() == param2.lower()
@@ -99,20 +99,16 @@ def step_impl(context):
         raise ('暂时不支持改操作符，请联系脚本维护人员')
 
     if not flag:
-        Utils().raise_Exception_info('比较失败《' + param1 + ' ' + opt + ' ' + param2 +  '》')
+        uit.raise_Exception_info('比较失败《' + param1 + ' ' + opt + ' ' + param2 +  '》')
 @then(u'< 验证当前界面包含文本')
 def step_impl(context):
     txt = context.table[0]['contains_txt']
     ele = d(textContains = txt)
-    if not ele.wait.exists(timeout=Utils().TIME_OUT):
-        Utils().raise_Exception_info('文本信息《' + txt + '》没有包含在界面中')
+    if not ele.wait.exists(timeout=ht.TIME_OUT):
+        uit.raise_Exception_info('文本信息《' + txt + '》没有包含在界面中')
 
 @when(u'< 重启设备')
 def step_impl(context):
-    device_serial = Utils().get_conf_value('deviceSerial')
+    device_serial = ht.get_conf_value('deviceSerial')
     os.popen('adb -s ' + device_serial + ' shell reboot')
-
-
-
-
 

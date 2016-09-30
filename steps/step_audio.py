@@ -5,8 +5,8 @@ from behave import then
 from behave import when
 
 from actions.audio import Audio
-from utils.utils import Utils
-
+from utils.uiTools import uit
+from utils.helpTools import ht
 
 @when(u'< 打开我的音乐库')
 def step_impl(context):
@@ -23,7 +23,7 @@ def step_impl(context):
     # 获取入参数据
     param = context.table[0]['chk_music_name']
     if str(param).startswith('o_'):
-        chk_music_name = Utils().get_context_map(param)
+        chk_music_name = ht.get_context_map(param)
     else:
         chk_music_name = param
     # 获取当前音乐名称
@@ -32,14 +32,15 @@ def step_impl(context):
     print("实际音乐名称为: " + cur_music_name)
     # 校验
     if cur_music_name == chk_music_name:
-        Utils().raise_Exception_info('音乐验证失败，期望值不应该是《' + chk_music_name + "》，实际值是《 " + cur_music_name + "》" )
+        uit.raise_Exception_info('音乐验证失败，期望值不应该是《' + chk_music_name + "》，实际值是《 " + cur_music_name + "》" )
+
 @then(u'< 验证音乐名称一致')
 def step_impl(context):
     # 获取入参数据
     param = context.table[0]['chk_music_name']
 
     if str(param).startswith('o_'):
-        chk_music_name = Utils().get_context_map(param)
+        chk_music_name = ht.get_context_map(param)
     else:
         chk_music_name = param
     # 获取当前音乐名称
@@ -48,7 +49,7 @@ def step_impl(context):
     print("实际音乐名称为: " + cur_music_name)
     # 校验包含
     if not str(cur_music_name).__contains__(chk_music_name):
-        Utils().raise_Exception_info('音乐验证失败，期望值是《' + chk_music_name + "》，实际值是《" + cur_music_name + "》" )
+        uit.raise_Exception_info('音乐验证失败，期望值是《' + chk_music_name + "》，实际值是《" + cur_music_name + "》" )
 
 @then(u'< 验证歌手名字一致')
 def step_impl(context):
@@ -60,7 +61,7 @@ def step_impl(context):
     param = context.table[0]['chk_artist']
     # 判断入参是否为上一个步骤的出参
     if str(param).startswith('o_'):
-        chk_artist = Utils().get_context_map(param)
+        chk_artist = ht.get_context_map(param)
     else:
         chk_artist = param
     # 获取当前歌手名字
@@ -69,7 +70,7 @@ def step_impl(context):
     print("实际歌手为: " + cur_artist)
     # 校验
     if not str(cur_artist).__contains__(chk_artist):
-        Utils().raise_Exception_info('歌手验证失败，期望值是《' + chk_artist + "》，实际值是《 " + cur_artist + "》" )
+        uit.raise_Exception_info('歌手验证失败，期望值是《' + chk_artist + "》，实际值是《 " + cur_artist + "》" )
 
 @then(u'< 验证音乐是否播放')
 def step_impl(context):
@@ -84,7 +85,7 @@ def step_impl(context):
         loop_cnt += 1
 
         if loop_cnt > 3:
-            Utils().raise_Exception_info('歌曲播放总时间为00：00')
+            uit.raise_Exception_info('歌曲播放总时间为00：00')
             break
     # 获取当前的showtime
     start_show_time = Audio().get_audio_showtime_txt()
@@ -96,7 +97,7 @@ def step_impl(context):
         cnt += 1
         # 限制次数 15s后抛异常
         if(3 == cnt):
-            Utils().raise_Exception_info('网络问题，音乐缓冲卡住')
+            uit.raise_Exception_info('网络问题，音乐缓冲卡住')
             break
 
     # 暂停5s
@@ -106,10 +107,10 @@ def step_impl(context):
     # 校验
     if flag == 'true':
         if start_show_time == end_show_time:
-            Utils().raise_Exception_info('音乐没有在播放或者播放过程中卡住')
+            uit.raise_Exception_info('音乐没有在播放或者播放过程中卡住')
     else:
         if start_show_time != end_show_time:
-            Utils().raise_Exception_info('音乐没有在暂停')
+            uit.raise_Exception_info('音乐没有在暂停')
 @when(u'< 打开音乐搜索')
 def step_impl(context):
     Audio().click_audio_search_ele()
@@ -139,7 +140,7 @@ def step_impl(context):
     chk_key_word = context.table[0]['chk_key_word']
     keyword_txt = Audio().get_audio_search_keyword_txt()
     if chk_key_word != keyword_txt:
-        Utils().raise_Exception_info('搜索框内容不一致，期望值为《' + chk_key_word + '》，实际值为《' + keyword_txt + '》')
+        uit.raise_Exception_info('搜索框内容不一致，期望值为《' + chk_key_word + '》，实际值为《' + keyword_txt + '》')
 @when(u'< 取消音乐搜索')
 def step_impl(context):
     Audio().click_audio_search_cancel_ele()
@@ -159,7 +160,7 @@ def step_impl(context):
     name = Audio().click_audio_smart_name_random_ele()
     print("选中的今日歌单的歌曲名字为: " + name)
     # 保存在上下文变量中
-    Utils().set_context_map(param, name)
+    ht.set_context_map(param, name)
 
 @when(u'< 打开音乐列表')
 def step_impl(context):
@@ -169,7 +170,7 @@ def step_impl(context):
 def step_impl(context):
     param = context.table[0]['chk_artist']
     if str(param).startswith('o_'):
-        chk_artist = Utils().get_context_map(param)
+        chk_artist = ht.get_context_map(param)
     else:
         chk_artist = param
     # 点击进入听ta的歌界面
@@ -197,7 +198,7 @@ def step_impl(context):
     # 获取数量
     usb_cnt = Audio().get_audio_mine_usb_cnt_txt()
     if chk_usb_cnt != usb_cnt:
-        Utils().raise_Exception_info('验证U盘音乐数量失败，期望数量:' + chk_usb_cnt + ", 实际数量:" + usb_cnt )
+        uit.raise_Exception_info('验证U盘音乐数量失败，期望数量:' + chk_usb_cnt + ", 实际数量:" + usb_cnt )
     else:
         Audio().hide_audio_mine_drawer()
 
@@ -212,20 +213,20 @@ def step_impl(context):
 def step_impl(context):
     # 获取当前播放的音乐名称
     name = Audio().get_audio_name_playing_txt()
-    if not tuple(Utils().get_usb_music()).__contains__(name):
-        Utils().raise_Exception_info('当前音乐不是U盘音乐')
+    if not tuple(ht.get_usb_music()).__contains__(name):
+        uit.raise_Exception_info('当前音乐不是U盘音乐')
 @when(u'< 获取当前音乐名称')
 def step_impl(context):
     #获取参数
     param = context.table[0]['o_result']
     ele_name = Audio().get_audio_name_playing_txt()
-    Utils().set_context_map(param, ele_name)
+    ht.set_context_map(param, ele_name)
 @when(u'< 获取当前音乐歌手')
 def step_impl(context):
     #获取参数
     param = context.table[0]['o_result']
     ele_artist = Audio().get_audio_artist_playing_txt()
-    Utils().set_context_map(param, ele_artist)
+    ht.set_context_map(param, ele_artist)
 @when(u'< 播放或暂停音乐')
 def step_impl(context):
     Audio().click_pause_or_play_ele()
@@ -255,39 +256,39 @@ def step_impl(context):
 @then(u'< 验证U盘已拔出')
 def step_impl(context):
     if not Audio().chk_audio_usb_gone():
-        Utils().raise_Exception_info('U盘拔出失败')
+        uit.raise_Exception_info('U盘拔出失败')
 @when(u'< 随机播放相似歌曲')
 def step_impl(context):
     #获取出参参数
     param = context.table[0]['o_result']
     Audio().click_audio_list_similar_ele()
     ele = Audio().get_audio_list_name_ele()
-    if ele.wait.exists(timeout = Utils().LONG_TIME_OUT):
+    if ele.wait.exists(timeout = ht.LONG_TIME_OUT):
         size = len(ele)
         idx = random.randint(0, size - 1)
         e = ele[idx]
         # 设置上下文变量 返回播放的音乐名称
         name = e.text.strip()
-        Utils().set_context_map(param, name)
+        ht.set_context_map(param, name)
         e.click.wait()
     else:
-        Utils().raise_Exception_info('网络刷新过慢，相似歌曲没有刷新出来')
+        uit.raise_Exception_info('网络刷新过慢，相似歌曲没有刷新出来')
 @when(u'< 随机播放听TA的歌')
 def step_impl(context):
     #获取出参参数
     param = context.table[0]['o_result']
     Audio().click_audio_list_ta_ele()
     ele = Audio().get_audio_list_name_ele()
-    if ele.wait.exists(timeout = Utils().LONG_TIME_OUT):
+    if ele.wait.exists(timeout = ht.LONG_TIME_OUT):
         size = len(ele)
         idx = random.randint(0, size - 1)
         e = ele[idx]
         # 设置上下文变量 返回播放的音乐名称
         name = e.text.strip()
-        Utils().set_context_map(param, name)
+        ht.set_context_map(param, name)
         e.click.wait()
     else:
-        Utils().raise_Exception_info('网络刷新过慢，听TA的歌没有刷新出来')
+        uit.raise_Exception_info('网络刷新过慢，听TA的歌没有刷新出来')
 @when(u'< 点击音乐收藏或取消收藏')
 def step_impl(context):
     Audio().click_audio_fav_ele()
@@ -297,7 +298,7 @@ def step_impl(context):
     # 获取参数信息
     chk_name = context.table[0]['name']
     if chk_name.__contains__('o_'):
-        chk_name = Utils().get_context_map(chk_name)
+        chk_name = ht.get_context_map(chk_name)
     chk_faved = context.table[0]['is_faved']
 
     Audio().click_audio_mine_fav_ele()
@@ -309,10 +310,10 @@ def step_impl(context):
                 flag = True
                 break
     else:
-        Utils().raise_Exception_info('我的收藏音乐记录为空')
+        uit.raise_Exception_info('我的收藏音乐记录为空')
 
     if not str(flag).lower().__eq__(chk_faved.lower()):
-        Utils().raise_Exception_info('音乐名称《' + chk_name + '》是否收藏校验失败')
+        uit.raise_Exception_info('音乐名称《' + chk_name + '》是否收藏校验失败')
     else:
         Audio().hide_audio_mine_drawer()
 @when(u'< 从酷我返回到音乐')

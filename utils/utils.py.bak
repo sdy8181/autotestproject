@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os
 import platform
-import socket
 import subprocess
 import time
 import math
@@ -11,7 +10,6 @@ from PIL import Image
 import operator
 from functools import reduce
 from configparser import ConfigParser
-
 from uiautomator import Device
 
 
@@ -88,7 +86,6 @@ class Utils:
         print('开始检查应用是否crash')
         if device(resourceId='android:id/message').wait.exists():
             print('应用crash')
-            # Utils().take_screenshot()
             device(resourceId='android:id/button1').click.wait()
             return True
         else:
