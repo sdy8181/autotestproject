@@ -254,6 +254,22 @@ def step_impl(context):  # 修改
     else:
         uit.raise_Exception_info('爱奇艺推荐视频不存在')
 
+@when(u'< 打开爱奇艺频道菜单')
+def step_impl(context):
+    ele = Video().get_aqy_menu_category()
+    if ele.wait.exists():
+        ele.click()
+    else:
+        uit.raise_Exception_info('爱奇艺频道菜单控件不存在')
+
+@when(u'< 打开推荐视频界面')
+def step_impl(context):
+    ele = Video().get_aqy_menu_category_recommend()
+    if ele.wait.exists():
+        ele.click.wait()
+    else:
+        uit.raise_Exception_info('爱奇艺推荐栏目控件不存在')
+
 
 @then(u'< 验证视频搜索结果')
 def step_impl(context):
