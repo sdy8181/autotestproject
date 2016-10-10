@@ -82,7 +82,7 @@ class Video:
     def get_aqy_search_his_title(self):
         view = uit.get_ele_by_resourceId(pkg_name + ':id/activity_search_flowlayout_history')
         if view.wait.exists():
-            return uit.get_ele_by_resourceId(pkg_name + ':id/item_search_hotandhistory_tv')
+            return view.child(resourceId=pkg_name + ':id/item_search_hotandhistory_tv')
         else:
             uit.raise_Exception_info('搜索记录视图为空')
 
@@ -91,7 +91,7 @@ class Video:
     def get_aqy_search_hot_title(self):
         view = uit.get_ele_by_resourceId(pkg_name + ':id/activity_search_flowlayout_hot')
         if view.wait.exists():
-            return uit.get_ele_by_resourceId(pkg_name + ':id/item_search_hotandhistory_tv')
+            return view.child(resourceId=pkg_name + ':id/item_search_hotandhistory_tv')
         else:
             uit.raise_Exception_info('热门搜索记录视图为空')
 
