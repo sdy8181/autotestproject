@@ -56,14 +56,15 @@ flask
 
 ####所需软件
 * python3.4+
-* requests
-* behave
-* pillow
-* pyserial
-* gitpython
-* uiautomator
+>* requests
+>* behave
+>* pillow
+>* pyserial
+>* GitPython
+>* uiautomator
 * pyqt5
 * jdk
+* git
 
 ###部署步骤(以上软件都均已正确安装)
 1. 新建文件夹atp
@@ -159,5 +160,23 @@ adb shell settings put secure default_input_method jp.jun_nama.test.utf7ime/.Utf
 > 还原擎感输入法命令:
 adb shell settings put secure default_input_method com.android.inputmethod.qingganime/.QingganIME
 
-
-
+3. 在用例运行过程中会出现如下错误：
+> Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Users\shenshun\AppData\Local\Programs\Python\Python35\lib\site-packag
+es\git\repo\base.py", line 966, in clone_from
+    return cls._clone(git, url, to_path, GitCmdObjectDB, progress, **kwargs)
+  File "C:\Users\shenshun\AppData\Local\Programs\Python\Python35\lib\site-packag
+es\git\repo\base.py", line 907, in _clone
+    v=True, **add_progress(kwargs, git, progress))
+  File "C:\Users\shenshun\AppData\Local\Programs\Python\Python35\lib\site-packag
+es\git\cmd.py", line 466, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "C:\Users\shenshun\AppData\Local\Programs\Python\Python35\lib\site-packag
+es\git\cmd.py", line 910, in _call_process
+    return self.execute(make_call(), **_kwargs)
+  File "C:\Users\shenshun\AppData\Local\Programs\Python\Python35\lib\site-packag
+es\git\cmd.py", line 630, in execute
+    raise GitCommandNotFound(str(err))
+git.exc.GitCommandNotFound: [WinError 2] 系统找不到指定的文件。<br>
+> *解决方法*：是因为本机没有安装git，需要在本机安装git
