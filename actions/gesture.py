@@ -13,9 +13,6 @@ class Gesture:
         os.popen('adb -s ' + ht.get_conf_value('deviceSerial') + ' shell "echo 1 > /sys/devices/virtual/misc/cis_mcu/acc"')
         # 倒车
         os.popen('adb -s ' + ht.get_conf_value('deviceSerial') + ' shell "echo 1 > /sys/devices/virtual/misc/cis_mcu/reverse"')
-        # 等待进入倒车界面
-        if not d(packageName='pateo.dls.gesture').wait.exists(timeout=ht.LONG_TIME_OUT):
-            uit.raise_Exception_info('没有进入倒车界面')
 
     # 停止倒车
     def stop_back_car(self):
@@ -23,9 +20,6 @@ class Gesture:
         os.popen('adb -s ' + ht.get_conf_value('deviceSerial') + ' shell "echo 1 > /sys/devices/virtual/misc/cis_mcu/acc"')
         # 倒车
         os.popen('adb -s ' + ht.get_conf_value('deviceSerial') + ' shell "echo 0 > /sys/devices/virtual/misc/cis_mcu/reverse"')
-        # 等待进入倒车界面
-        if not d(packageName='pateo.dls.gesture').wait.gone(timeout=ht.LONG_TIME_OUT):
-            uit.raise_Exception_info('没有退出倒车界面')
 
 
     def back_to_launcher(self):
