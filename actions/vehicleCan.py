@@ -8,6 +8,8 @@ Created on 2016年9月19日
 from support.global_vars import d
 from utils.CANSignalSets import TocFunctionMap
 from utils.PcanHandler import *
+from utils.helpTools import HT
+
 
 def singleton(cls, *args, **kw):
     instances = {}
@@ -205,7 +207,6 @@ class CAN_Start():
 
 
 
-
 ###########################################################################################################
 #class: vehecle signal
 ##############
@@ -214,7 +215,23 @@ class CAN_Start():
 class CAN_action():
 
     def __init__(self):
-        self.pcan = CAN_Start(PCAN_BAUD_100K)
+        baud = HT().get_conf_value('devicePcanBaudrate').upper()
+
+        if '100' in baud:
+            self.pcan = CAN_Start(PCAN_BAUD_100K)
+        elif '250' in baud:
+            self.pcan = CAN_Start(PCAN_BAUD_250K)
+        elif '500' in baud:
+            self.pcan = CAN_Start(PCAN_BAUD_500K)
+        elif '800' in baud:
+            self.pcan = CAN_Start(PCAN_BAUD_800K)
+        elif '1M' in baud:
+            self.pcan = CAN_Start(PCAN_BAUD_1M)
+        elif '1000' in baud:
+            self.pcan = CAN_Start(PCAN_BAUD_1M)
+        else:
+            print("Pcan 波特率设置不正确")
+
         canthread = threading.Thread(target=self.pcan.keepHeart)
         canthread.setDaemon(True)
         canthread.start()
