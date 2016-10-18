@@ -36,19 +36,19 @@ def step_impl(context):
 def step_impl(context):
     CAN_action().exitreverse()
 
-@when(u' <挂P档')
+@when(u'< 挂P档')
 def step_impl(context):
     CAN_action().Pgears()
 
-@when(u' <挂N档')
+@when(u'< 挂N档')
 def step_impl(context):
     CAN_action().Ngears()
 
-@when(u' <挂D档')
+@when(u'< 挂D档')
 def step_impl(context):
     CAN_action().Dgears()
 
-@when(u' <D档车速40KM')
+@when(u'< D档车速40KM')
 def step_impl(context):
     CAN_action().drive40()
 
