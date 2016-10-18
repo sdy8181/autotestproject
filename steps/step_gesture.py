@@ -16,7 +16,7 @@ def step_impl(context):
 @then(u'< 验证正在倒车')
 def step_impl(context):
     cur_png_name = uit.take_screenshot()
-    init_png_name = os.path.join(os.path.abspath('../support'), 'car_reverse.png')
+    init_png_name = os.path.join(os.path.abspath(os.path.dirname(__file__) + '../support'), 'car_reverse.png')
     diff_data = ht.get_image_diff_data(init_png_name, cur_png_name)
     if diff_data > 1.0:
         error_png = uit.take_screenshot()
