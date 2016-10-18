@@ -10,7 +10,7 @@ from functools import reduce
 from uiautomator import Device,Adb
 from configparser import ConfigParser
 
-DEVICE_IP = "192.168.95.2:5578"
+#DEVICE_IP = "192.168.95.2:5578"
 
 
 class HT:
@@ -32,7 +32,7 @@ class HT:
 
         adb = Adb()
         try:
-            line = adb.raw_cmd("connect", DEVICE_IP).communicate()[0].decode("utf-8")
+            line = adb.raw_cmd("connect", self.get_conf_value("deviceIPaddress").strip()+":5578").communicate()[0].decode("utf-8")
             if "connected to" in line:
                 return True
             else:
