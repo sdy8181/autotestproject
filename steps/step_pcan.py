@@ -5,7 +5,6 @@ from behave import then
 from behave import when
 
 from actions.vehicleCan import CAN_action
-from utils.utils import Utils
 
 @when(u'< 方向盘调起ivoka')
 def step_impl(context):
