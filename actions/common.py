@@ -78,6 +78,10 @@ class Common:
                 else:
                     if uit.crash_handler():
                         print('回到主界面有CRASH')
+                    else:
+                        uit.raise_Exception_info('应用停留界面没有返回主界面处理，请联系维护人员添加')
+                        break
+
                 package_name = d.info['currentPackageName']
         # 在主界面
         Launcher().back_to_main()
