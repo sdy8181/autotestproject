@@ -7,8 +7,11 @@ import operator
 import subprocess
 from PIL import Image
 from functools import reduce
-from uiautomator import Device
+from uiautomator import Device,Adb
 from configparser import ConfigParser
+
+DEVICE_IP = "192.168.95.2:5578"
+
 
 class HT:
 
@@ -18,6 +21,26 @@ class HT:
     # 上下文 用于存放数据
     global context_map
     context_map = {}
+
+    def initWifiADB(self):
+
+        '''
+            通过wifi方式建立adb连接，避免了通过usb连接adb繁琐的设置以及无法使用user版本
+             环境：PC与车机同一个局域网
+        adb.exe需要同一个进程调用，不然会被打断，所以统一用uiautomator方法初始化
+        '''
+
+        adb = Adb()
+        try:
+            line = adb.raw_cmd("connect", DEVICE_IP).communicate()[0].decode("utf-8")
+            if "connected to" in line:
+                return True
+            else:
+                raise Exception('Connect to adb fail via wifi ')
+        except IOError as e:
+            return False
+
+
 
     # 上下文存放数据
     def set_context_map(self, key, value):
@@ -97,7 +120,7 @@ class HT:
             s = s.decode().strip()
             if serial_num in s:
                 return True
-        return False
+        return self.initWifiADB()
 
 
     # 获取wifi连接状态
