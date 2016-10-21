@@ -2,18 +2,12 @@
 import os
 import subprocess
 import threading
-
+import socket
 import time
 
 import sys
 
 from actions.common import Common
-from actions.launcher import Launcher
-from actions.navi import Navi
-from actions.phone import Phone
-from actions.radio import Radio
-from actions.systemsetting import SysSetting
-from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit
 
@@ -24,10 +18,12 @@ def before_all(context):
     serialNum = ht.get_conf_value('deviceSerial')
     if not ht.check_is_connected(serialNum):
         uit.raise_Exception_info('车机没有连接请检查')
+
     print('设备已经连接')
 
     # 清空logcat日志记录
     log_path = ht.get_conf_value('logPath')
+
     if sys.platform == 'linux':
         subprocess.call('rm -rf ' + log_path, shell=True)
     else:
@@ -58,5 +54,16 @@ def before_scenario(context, scenario):
 def after_scenario(context, scenario):
     # 获取场景名称
     sce_name = scenario.name
+    # 发送消息到客户端执行结束一条用例
+    try:
+        cli = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        cli.connect(('localhost', 8899))
+        cli.send(sce_name.encode('utf-8'))
+        time.sleep(2)
+    except:
+        pass
+    finally:
+        cli.close()
+
     print('场景《' + sce_name + '》执行结束！')
     print('=' * 60)
