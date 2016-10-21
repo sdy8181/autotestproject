@@ -20,6 +20,11 @@ def before_all(context):
         uit.raise_Exception_info('车机没有连接请检查')
 
     print('设备已经连接')
+    #安装utf7ime输入法并设置为默认输入法
+    utf7apk_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'support', 'Utf7Ime.apk')
+    subprocess.call('adb -s ' + serialNum + 'install -r ' + utf7apk_path, shell=True)
+    # 设置输入法
+    subprocess.call('adb -s ' + serialNum + ' shell settings put secure default_input_method jp.jun_nama.test.utf7ime/.Utf7ImeService', shell=True)
 
     # 清空logcat日志记录
     log_path = ht.get_conf_value('logPath')
@@ -28,6 +33,12 @@ def before_all(context):
         subprocess.call('rm -rf ' + log_path, shell=True)
     else:
         subprocess.call('rd /q/s ' + log_path, shell=True)
+
+# 还原设置
+def after_all(context):
+    # 恢复输入法
+    serialNum = ht.get_conf_value('deviceSerial')
+    subprocess.call('adb -s ' + serialNum + ' shell settings put secure default_input_method com.android.inputmethod.qingganime/.QingganIME', shell=True)
 
 # 场景前处理
 # 每个场景之前确保设备在主界面
