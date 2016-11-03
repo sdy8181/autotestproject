@@ -7,7 +7,7 @@ import time
 
 import sys
 
-from actions.common import Common
+from elements.common import Common
 from utils.helpTools import ht
 from utils.uiTools import uit
 

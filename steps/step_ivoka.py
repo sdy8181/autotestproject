@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from behave import then
 
-from actions.ivoka import Ivoka
+from elements.ivoka import Ivoka
 from support.global_vars import d
 from utils.uiTools import uit
 from utils.helpTools import ht

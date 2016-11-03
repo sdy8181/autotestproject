@@ -2,7 +2,7 @@
 import random
 
 from behave import then, when
-from actions.navi import Navi
+from elements.navi import Navi
 from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit

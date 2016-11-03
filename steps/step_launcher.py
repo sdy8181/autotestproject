@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 from behave import when, then
 
-from actions.launcher import Launcher
-from actions.phone import Phone
+from elements.launcher import Launcher
+from elements.phone import Phone
 from utils.helpTools import ht
 from utils.uiTools import uit
 

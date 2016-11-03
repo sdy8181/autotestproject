@@ -3,7 +3,7 @@ import os
 
 from behave import when, then
 
-from actions.gesture import Gesture
+from elements.gesture import Gesture
 from utils.helpTools import ht
 from utils.uiTools import uit
 

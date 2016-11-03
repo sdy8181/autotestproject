@@ -2,7 +2,7 @@
 import time
 from behave import when, then
 
-from actions.radio import Radio
+from elements.radio import Radio
 from utils.helpTools import ht
 from utils.uiTools import uit
 

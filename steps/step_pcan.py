@@ -4,7 +4,7 @@ import time
 from behave import then
 from behave import when
 
-from actions.vehicleCan import CAN_action
+from elements.vehicleCan import CAN_action
 
 @when(u'< 方向盘调起ivoka')
 def step_impl(context):

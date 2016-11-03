@@ -3,7 +3,7 @@ import random
 import time
 from behave import when, then
 
-from actions.video import Video
+from elements.video import Video
 from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit

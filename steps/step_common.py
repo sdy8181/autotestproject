@@ -4,7 +4,7 @@ import time
 
 from behave import when, then
 
-from actions.common import Common
+from elements.common import Common
 from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit

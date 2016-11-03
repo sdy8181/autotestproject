@@ -3,14 +3,14 @@ import os
 import platform
 import time
 import serial
-from actions.audio import Audio
-from actions.gesture import Gesture
-from actions.launcher import Launcher
-from actions.navi import Navi
-from actions.qplay import Qplay
-from actions.radio import Radio
-from actions.systemsetting import SysSetting
-from actions.video import Video
+from elements.audio import Audio
+from elements.gesture import Gesture
+from elements.launcher import Launcher
+from elements.navi import Navi
+from elements.qplay import Qplay
+from elements.radio import Radio
+from elements.systemsetting import SysSetting
+from elements.video import Video
 from support.global_vars import ver_flag, d
 from utils.helpTools import ht
 from utils.uiTools import uit

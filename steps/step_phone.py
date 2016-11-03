@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from behave import when
 
-from actions.phone import Phone
+from elements.phone import Phone
 
 
 @when(u'< 手机拨打号码')

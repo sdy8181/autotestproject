@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 from behave import then, when
 
-from actions.phone import Phone
-from actions.qplay import Qplay
+from elements.phone import Phone
+from elements.qplay import Qplay
 from utils.helpTools import ht
 from utils.uiTools import uit
 

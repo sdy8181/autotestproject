@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 from behave import when
 
-from actions.common import Common
-from actions.launcher import Launcher
-from actions.systemsetting import SysSetting
+from elements.common import Common
+from elements.launcher import Launcher
+from elements.systemsetting import SysSetting
 from utils.helpTools import ht
 
 @when(u'< 断开蓝牙连接')
