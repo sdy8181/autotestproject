@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-from support.global_vars import ver_flag
 from utils.uiTools import uit
 
 class Ivoka:
@@ -7,10 +6,7 @@ class Ivoka:
     def __init__(self):
         # 新旧版本的pkgname判断
         global pkg_name
-        if ver_flag:
-            pkg_name = "pateo.dls.app.ivokaUI"
-        else:
-            pkg_name = "com.qinggan.ivoka"
+        pkg_name = "com.qinggan.ivoka"
 
     # 获取最高温度控件
     def get_weather_temperature_high_ele(self):

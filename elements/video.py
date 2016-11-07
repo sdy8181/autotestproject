@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
-from support.global_vars import d, ver_flag
-from utils.helpTools import ht
+from support.global_vars import d
 from utils.uiTools import uit
 
 class Video:
@@ -8,10 +7,7 @@ class Video:
     def __init__(self):
         # 新旧版本的pkgname判断
         global pkg_name
-        if ver_flag:
-            pkg_name = "pateo.dls.app.videoui"
-        else:
-            pkg_name = "com.qiyi.video.auto"
+        pkg_name = "com.qiyi.video.auto"
 
     # 获取爱奇艺顶部菜单
     def get_aqy_home_top_menu(self):

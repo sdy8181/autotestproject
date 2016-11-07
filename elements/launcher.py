@@ -2,9 +2,8 @@
 
 import time
 
-from support.global_vars import ver_flag, d
+from support.global_vars import d
 from utils.uiTools import uit
-from utils.helpTools import ht
 
 class Launcher:
 
@@ -12,10 +11,7 @@ class Launcher:
 
                 # 新旧版本的pkgname判断
         global pkg_name
-        if ver_flag:
-            pkg_name = "pateo.dls.app.launcher"
-        else:
-            pkg_name = "com.qinggan.app.launcher"
+        pkg_name = "com.qinggan.app.launcher"
 
     # 获取ivoka控件
     def __get_ivoka_ele(self):

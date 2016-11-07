@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import random
 import time
-from support.global_vars import d, ver_flag
+from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit
 
@@ -12,10 +12,7 @@ class Radio:
     def __init__(self):
         # 新旧版本的pkgname判断
         global pkg_name
-        if ver_flag:
-            pkg_name = "pateo.dls.app.radio"
-        else:
-            pkg_name = "com.qinggan.app.radio"
+        pkg_name = "com.qinggan.app.radio"
 
     #     获取上一首控件
     def __get_radio_prev_ele(self):

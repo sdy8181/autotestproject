@@ -162,12 +162,6 @@ class HT:
         result = math.sqrt(reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, h1, h2))) / len(h1))
         return result
 
-    #返回是否为老版本
-    # true:为老版本
-    # false: 为新版本
-    def is_old_ver(self):
-        version = self.get_conf_value("version")
-        return str(version).__eq__("1.0")
 
     # 记录运行top信息
     def get_top_info_to_file(self, sce_name):

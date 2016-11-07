@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import time
 
-from support.global_vars import ver_flag, d
+from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit
 
@@ -9,10 +9,7 @@ class Navi:
     def __init__(self):
         # 新旧版本的pkgname判断
         global pkg_name
-        if ver_flag:
-            pkg_name = "com.pateonavi.naviapp"
-        else:
-            pkg_name = "com.pateonavi.naviapp"
+        pkg_name = "com.pateonavi.naviapp"
 
         skip = uit.get_ele_by_resourceId(pkg_name + ':id/skip')
         if skip.wait.exists():

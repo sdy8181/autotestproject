@@ -1,18 +1,14 @@
 # -*- coding: UTF-8 -*-
 import time
 
-from support.global_vars import ver_flag, d
-from utils.helpTools import ht
+from support.global_vars import d
 from utils.uiTools import uit
 
 class SysSetting:
 
     def __init__(self):
         global pkg_name
-        if ver_flag:
-            pkg_name = "pateo.dls.app.SystemSettingUI"
-        else:
-            pkg_name = "com.qinggan.app.setting"
+        pkg_name = "com.qinggan.app.setting"
 
 
     # 获取网络菜单控件

@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os
 import subprocess
-import threading
 import socket
 import time
 
@@ -90,4 +89,6 @@ def after_scenario(context, scenario):
         cli.close()
 
     print('场景《' + sce_name + '》执行结束！')
+
     print('=' * 60)
+

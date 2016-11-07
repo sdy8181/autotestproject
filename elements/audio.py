@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import random
 import time
-from support.global_vars import ver_flag, d
+from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit
 
@@ -11,25 +11,16 @@ class Audio:
 
         # 新旧版本的pkgname判断
         global pkg_name
-        if ver_flag:
-            pkg_name = "pateo.dls.audioui"
-        else:
-            pkg_name = "com.qinggan.app.music"
+        pkg_name = "com.qinggan.app.music"
 
     # 获取下一首控件
     def __get_next_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/next')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/img_next')
+        return uit.get_ele_by_resourceId(pkg_name + ':id/img_next')
 
     # 获取上一首控件
     def __get_prev_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/prev')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/img_previous')
-        
+        return uit.get_ele_by_resourceId(pkg_name + ':id/img_previous')
+
     # 获取正在播放的歌曲名字控件
     def __get_audio_name_playing_ele(self):
         # 最新酷我音乐界面分析
@@ -37,10 +28,7 @@ class Audio:
         if package_name == 'cn.kuwo.kwmusiccar':
             return uit.get_ele_by_resourceId(package_name + ':id/tv_songname')
 
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/name')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/txt_title')
+        return uit.get_ele_by_resourceId(pkg_name + ':id/txt_title')
     
     # 获取正在播放的演唱者控件
     def __get_audio_artist_playing_ele(self):
@@ -49,10 +37,7 @@ class Audio:
         if package_name == 'cn.kuwo.kwmusiccar':
             return uit.get_ele_by_resourceId(package_name + ':id/tv_artist')
 
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/artist')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/txt_artist')
+        return uit.get_ele_by_resourceId(pkg_name + ':id/txt_artist')
         
     # 获取音乐列表控件
     def __get_audio_list_ele(self):
@@ -65,10 +50,7 @@ class Audio:
         if package_name == 'cn.kuwo.kwmusiccar':
             return uit.get_ele_by_resourceId(package_name + ':id/tvTime')
 
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/showtime')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/txt_currenttime')
+        return uit.get_ele_by_resourceId(pkg_name + ':id/txt_currenttime')
         
     # 获取音乐播放总时间控件
     def __get_audio_alltime_ele(self):
@@ -77,10 +59,7 @@ class Audio:
         if package_name == 'cn.kuwo.kwmusiccar':
             return uit.get_ele_by_resourceId(package_name + ':id/tvTime')
 
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/alltime')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/txt_alltime')
+        return uit.get_ele_by_resourceId(pkg_name + ':id/txt_alltime')
 
     # 获取我的音乐库控件
     def __get_audio_mine_ele(self):
@@ -104,36 +83,21 @@ class Audio:
     # 我的音乐库窗口控件
     # 获取我的音乐库窗口控件
     def __get_audio_mine_drawer_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/blurDrawer')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/drawer')
+        return uit.get_ele_by_resourceId(pkg_name + ':id/drawer')
 
     # 获取音乐库中的我的音乐
     def __get_audio_mine_my_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/tab_local')
-        else:
-            return uit.get_ele_by_text('我的音乐')
+        return uit.get_ele_by_text('我的音乐')
 
     # 获取音乐库中的我的收藏
     def __get_audio_mine_fav_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/tab_fav')
-        else:
-            return uit.get_ele_by_text('我的收藏')
+        return uit.get_ele_by_text('我的收藏')
     # 获取音乐库中的听歌识曲
     def __get_audio_mine_ide_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/tab_ide')
-        else:
-            return uit.get_ele_by_text('听歌识曲')
+        return uit.get_ele_by_text('听歌识曲')
     # 获取音乐库中的全部歌曲
     def __get_audio_mine_all_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/tab_all')
-        else:
-            return uit.get_ele_by_text('全部歌曲')
+        return uit.get_ele_by_text('全部歌曲')
 
     # 获取音乐列表控件
     def __get_audio_mine_all_listview_ele(self):
@@ -172,17 +136,11 @@ class Audio:
 
     # 获取音乐收藏控件
     def __get_audio_fav_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/fav_ibn')
-        else:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/img_fav')
+        return uit.get_ele_by_resourceId(pkg_name + ':id/img_fav')
 
     # 获取听Ta的歌曲
     def __get_audio_list_ta_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/tab_ide')
-        else:
-            return uit.get_ele_by_text('听Ta的歌')
+        return uit.get_ele_by_text('听Ta的歌')
     # 获取听ta的歌曲的listview控件
     def __get_audio_list_ta_listview_ele(self):
         return uit.get_ele_by_resourceId(pkg_name + ':id/play_listview')
@@ -197,10 +155,7 @@ class Audio:
         return uit.get_ele_by_resourceId(pkg_name + ':id/txt_artist')
     # 获取相似歌曲控件
     def __get_audio_list_similar_ele(self):
-        if ver_flag:
-            return uit.get_ele_by_resourceId(pkg_name + ':id/tab_all')
-        else:
-            return uit.get_ele_by_text('相似歌曲')
+        return uit.get_ele_by_text('相似歌曲')
 
     # 获取列表中的歌曲名字控件
     def get_audio_list_name_ele(self):

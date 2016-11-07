@@ -11,7 +11,7 @@ from elements.qplay import Qplay
 from elements.radio import Radio
 from elements.systemsetting import SysSetting
 from elements.video import Video
-from support.global_vars import ver_flag, d
+from support.global_vars import d
 from utils.helpTools import ht
 from utils.uiTools import uit
 
@@ -22,67 +22,38 @@ class Common:
     def back_to_launcher(self):
         # 获取当前包名
         package_name = d.info['currentPackageName']
-        if ver_flag:
-            while package_name != 'pateo.dls.app.launcher':
-                if 'pateo.dls.carmodule.ui'.__eq__(package_name):
-                    pass
-                elif 'pateo.dls.serviceui'.__eq__(package_name):
-                    pass
-                elif 'com.qiyi.video.auto'.__eq__(package_name):
-                    Video().back_to_launcher()
-                elif 'com.pateonavi.naviapp'.__eq__(package_name):
-                    Navi().back_to_launcher()
-                elif 'pateo.dls.audioui'.__eq__(package_name):
-                    Audio().back_to_launcher()
-                elif 'cn.kuwo.kwmusiccar'.__eq__(package_name):
-                    Audio().back_from_kuwo()
-                elif 'pateo.dls.app.radio'.__eq__(package_name):
-                    Radio().back_to_launcher()
-                elif 'pateo.dls.qplay'.__eq__(package_name):
-                    Qplay().back_to_launcher()
-                elif 'pateo.dls.app.SystemSettingUI'.__eq__(package_name):
-                    SysSetting().back_to_launcher()
-                elif 'pateo.dls.app.ivokaUI'.__eq__(package_name):
-                    time.sleep(10)
-                elif 'pateo.dls.gesture'.__eq__(package_name):
-                    Gesture().back_to_launcher()
-                else:
-                    if uit.crash_handler():
-                        print('回到主界面有CRASH')
-                package_name = d.info['currentPackageName']
-        else:
 
-            while package_name != 'com.qinggan.app.launcher':
-                if 'com.qinggan.app.carmodule.ui'.__eq__(package_name):
-                    pass
-                elif 'com.qinggan.app.serviceui'.__eq__(package_name):
-                    pass
-                elif 'com.qiyi.video.auto'.__eq__(package_name):
-                    Video().back_to_launcher()
-                elif 'com.pateonavi.naviapp'.__eq__(package_name):
-                    Navi().back_to_launcher()
-                elif 'com.qinggan.app.music'.__eq__(package_name):
-                    Audio().back_to_launcher()
-                elif 'cn.kuwo.kwmusiccar'.__eq__(package_name):
-                    Audio().back_from_kuwo()
-                elif 'com.qinggan.app.radio'.__eq__(package_name):
-                    Radio().back_to_launcher()
-                elif 'com.qinggan.app.qplay'.__eq__(package_name):
-                    Qplay().back_to_launcher()
-                elif 'com.qinggan.app.setting'.__eq__(package_name):
-                    SysSetting().back_to_launcher()
-                elif 'com.qinggan.app.ivokaUI'.__eq__(package_name):
-                    time.sleep(10)
-                elif 'com.qinggan.app.gesture'.__eq__(package_name):
-                    Gesture().back_to_launcher()
+        while package_name != 'com.qinggan.app.launcher':
+            if 'com.qinggan.app.carmodule.ui'.__eq__(package_name):
+                pass
+            elif 'com.qinggan.app.serviceui'.__eq__(package_name):
+                pass
+            elif 'com.qiyi.video.auto'.__eq__(package_name):
+                Video().back_to_launcher()
+            elif 'com.pateonavi.naviapp'.__eq__(package_name):
+                Navi().back_to_launcher()
+            elif 'com.qinggan.app.music'.__eq__(package_name):
+                Audio().back_to_launcher()
+            elif 'cn.kuwo.kwmusiccar'.__eq__(package_name):
+                Audio().back_from_kuwo()
+            elif 'com.qinggan.app.radio'.__eq__(package_name):
+                Radio().back_to_launcher()
+            elif 'com.qinggan.app.qplay'.__eq__(package_name):
+                Qplay().back_to_launcher()
+            elif 'com.qinggan.app.setting'.__eq__(package_name):
+                SysSetting().back_to_launcher()
+            elif 'com.qinggan.app.ivokaUI'.__eq__(package_name):
+                time.sleep(10)
+            elif 'com.qinggan.app.gesture'.__eq__(package_name):
+                Gesture().back_to_launcher()
+            else:
+                if uit.crash_handler():
+                    print('回到主界面有CRASH')
                 else:
-                    if uit.crash_handler():
-                        print('回到主界面有CRASH')
-                    else:
-                        uit.raise_Exception_info('应用停留界面没有返回主界面处理，请联系维护人员添加')
-                        break
+                    uit.raise_Exception_info('应用停留界面没有返回主界面处理，请联系维护人员添加')
+                    break
 
-                package_name = d.info['currentPackageName']
+            package_name = d.info['currentPackageName']
         # 在主界面
         Launcher().back_to_main()
         # 升级后取消修复
@@ -126,50 +97,29 @@ class Common:
     #返回当前应用名称
     def get_current_package_name(self):
         package_name = d.info['currentPackageName']
-        if ver_flag:
-            if 'pateo.dls.carmodule.ui'.__eq__(package_name):
-                return '车辆'
-            elif 'pateo.dls.serviceui'.__eq__(package_name):
-                return '服务'
-            elif 'com.qiyi.video.auto'.__eq__(package_name):
-                return '视频'
-            elif 'com.pateonavi.naviapp'.__eq__(package_name):
-                return '导航'
-            elif 'pateo.dls.audioui'.__eq__(package_name) or 'cn.kuwo.kwmusiccar'.__eq__(package_name):
-                return '音乐'
-            elif 'pateo.dls.app.radio'.__eq__(package_name):
-                return '电台'
-            elif 'pateo.dls.qplay'.__eq__(package_name):
-                return 'QPlay'
-            elif 'pateo.dls.app.SystemSettingUI'.__eq__(package_name):
-                return '设置'
-            elif 'pateo.dls.app.ivokaUI'.__eq__(package_name):
-                return 'ivoka'
-            else:
-                return '主界面'
+
+        if 'com.qinggan.app.carmodule.ui'.__eq__(package_name):
+            return '车辆'
+        elif 'com.qinggan.app.serviceui'.__eq__(package_name):
+            return '服务'
+        elif 'com.qiyi.video.auto'.__eq__(package_name):
+            return '视频'
+        elif 'com.pateonavi.naviapp'.__eq__(package_name):
+            return '导航'
+        elif 'com.qinggan.app.music'.__eq__(package_name) or 'cn.kuwo.kwmusiccar'.__eq__(package_name):
+            return '音乐'
+        elif 'com.qinggan.app.radio'.__eq__(package_name):
+            return '电台'
+        elif 'com.qinggan.app.qplay'.__eq__(package_name):
+            return 'QPlay'
+        elif 'com.qinggan.app.setting'.__eq__(package_name):
+            return '设置'
+        elif 'com.qinggan.app.ivokaUI'.__eq__(package_name):
+            return 'ivoka'
+        elif 'com.qinggan.app.gesture'.__eq__(package_name):
+            Gesture().back_to_launcher()
         else:
-            if 'com.qinggan.app.carmodule.ui'.__eq__(package_name):
-                return '车辆'
-            elif 'com.qinggan.app.serviceui'.__eq__(package_name):
-                return '服务'
-            elif 'com.qiyi.video.auto'.__eq__(package_name):
-                return '视频'
-            elif 'com.pateonavi.naviapp'.__eq__(package_name):
-                return '导航'
-            elif 'com.qinggan.app.music'.__eq__(package_name) or 'cn.kuwo.kwmusiccar'.__eq__(package_name):
-                return '音乐'
-            elif 'com.qinggan.app.radio'.__eq__(package_name):
-                return '电台'
-            elif 'com.qinggan.app.qplay'.__eq__(package_name):
-                return 'QPlay'
-            elif 'com.qinggan.app.setting'.__eq__(package_name):
-                return '设置'
-            elif 'com.qinggan.app.ivokaUI'.__eq__(package_name):
-                return 'ivoka'
-            elif 'com.qinggan.app.gesture'.__eq__(package_name):
-                Gesture().back_to_launcher()
-            else:
-                return '主界面'
+            return '主界面'
 
 
     def phone_call_handler(self, device):
